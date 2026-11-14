@@ -20,4 +20,4 @@ features:
     details: 每折腾出一个新东西，就多一篇文章。
 ---
 
-    [free-for-dev 中英对照](/free-for-dev-bilingual.html)
+[free-for-dev 中英对照](/free-for-dev-bilingual.html)
