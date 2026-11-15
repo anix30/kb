@@ -10,7 +10,7 @@ hero:
       link: /articles
     - theme: alt
       text: GitHub
-      link: https://github.com/anix30
+      link: https://github.com/anix30/kb
 features:
   - title: 照着走就能复现
     details: 每篇指南都按真实操作写成：去哪、点什么、填什么、怎么确认，一步不缺。
