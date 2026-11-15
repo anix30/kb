@@ -7,7 +7,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读
-      link: /cloud-mail
+      link: /articles
     - theme: alt
       text: GitHub
       link: https://github.com/anix30
