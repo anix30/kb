@@ -25,14 +25,16 @@ cd ComfyUI
 # 万一 github 拉不动，换镜像：
 # git clone --depth 1 https://gitee.com/hf_nlp/ComfyUI.git
 
-# 关键：依赖装到持久化目录，否则关实例就没了
-pip install -r requirements.txt --target /mnt/workspace/pylibs
+# 关键：安装虚拟环境
+```bash
+Python-m env env
+source /mnt/workspace/bin/activate
 ```
 
-**必踩的第一个坑，先修掉**（不修会报 `module 'numpy' has no attribute '_core'`）：
-
+# 关键：依赖装到持久化目录，否则关实例就没了
 ```bash
-pip install "numpy<2" --target /mnt/workspace/pylibs --upgrade
+cd /mnt/workspace/ComfyUI
+pip install -r requirements.txt
 ```
 
 每次开新 shell 都要：
@@ -61,7 +63,7 @@ cp /tmp/sd15/v1-5-pruned-emaonly.safetensors /mnt/workspace/ComfyUI/models/check
 # SD-Turbo（1 步档，学参数专用，约 2GB）
 modelscope download --model AI-ModelScope/sd-turbo \
   --local_dir /tmp/turbo
-cp /tmp/turbo/sd-turbo.safetensors /mnt/workspace/ComfyUI/models/checkpoints/
+cp /tmp/turbo/sd_turbo.safetensors /mnt/workspace/ComfyUI/models/checkpoints/
 
 # SDXL（等 GPU 阶段用，CPU 上别跑）
 # modelscope download --model AI-ModelScope/stable-diffusion-xl-base-1.0 --local_dir /tmp/sdxl
@@ -152,7 +154,7 @@ def txt2img(ckpt, prompt, neg="", seed=0, steps=20, cfg=7.0, w=512, h=512):
       "4": {"class_type": "EmptyLatentImage",        # 空潜空间
             "inputs": {"width": w, "height": h, "batch_size": 1}},
       "5": {"class_type": "KSampler",                # 采样：整条链的心脏
-            "inputs": {"model": ["1", 0], "clip": ["1", 1],
+            "inputs": {"model": ["1", 0],
                        "positive": ["2", 0], "negative": ["3", 0],
                        "latent_image": ["4", 0],
                        "seed": seed, "steps": steps, "cfg": cfg,
@@ -172,7 +174,7 @@ UI 里那根蓝线/紫线/黄线，在数据层就是这个元组。
 
 ```python
 # SD-Turbo：1 步、CFG=1，CPU 上约 6 秒 —— 学参数主力
-paths = run(txt2img("sd-turbo.safetensors",
+paths = run(txt2img("sd_turbo.safetensors",
                     "a red fox sitting on a rock, cinematic light",
                     steps=1, cfg=1.0, seed=42))
 show(paths)
