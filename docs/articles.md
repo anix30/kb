@@ -1,5 +1,25 @@
 # 文章目录
 
+## ComfyUI 提交器三函数逐行详解：api() / run() / show()
+
+这份文档专门拆解 ModelScope（和 Kaggle）指南里那段 notebook 提交器代码。 三个函数的关系是分层的：
+
+api()   —— 底层：发一个 HTTP 请求，把 ComfyUI 的响应解析成 Python 对象
+  ↑
+run()   —— 中层：用 api() 提交 workflow → 拿任务号 → 轮询直到出图 → 返回文件路径
+  ↑
+show()  —— 展示层：把 run() 返回的文件路径显示成图片
+
+完整链路：txt2img() 造 workflow → run() 提交并等待 → show() 显示
+
+[开始阅读](/comfyui-api-functions)
+
+## Kaggle 免费资源跑 ComfyUI · 两阶段指南（先 CPU，后 GPU）
+
+在 ModelScope Notebook 免费 CPU 上跑 ComfyUI的步骤搬到Kaggle上，不同点主要在notebook存储机制不同，其他流程基本相同，未使用cloudflared反代 。
+
+[开始阅读](/comfyui-kaggle)
+
 ## 在ModelScope.cn 安装 ComfyUI，并用免费CPU学习）
 
 在 ModelScope Notebook 免费 CPU 上跑 ComfyUI，生成图片，只是学习ComfyUI的工作流。
